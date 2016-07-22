@@ -2,45 +2,45 @@
 #define IMPLICIT_BRIGHTCONTRAST_H
 
 #include "implicitmodulebase.h"
-namespace anl
+namespace NoiseLibrary
 {
     class CImplicitBrightContrast : public CImplicitModuleBase
     {
         public:
         CImplicitBrightContrast();
-        CImplicitBrightContrast(ANLFloatType s,ANLFloatType b,ANLFloatType t,ANLFloatType f);
-        CImplicitBrightContrast(ANLFloatType s,ANLFloatType b,ANLFloatType t,CImplicitModuleBase *  f);
-        CImplicitBrightContrast(ANLFloatType s,ANLFloatType b,CImplicitModuleBase *  t,ANLFloatType f);
-        CImplicitBrightContrast(ANLFloatType s,ANLFloatType b,CImplicitModuleBase *  t,CImplicitModuleBase *  f);
-        CImplicitBrightContrast(ANLFloatType s,CImplicitModuleBase *  b,ANLFloatType t,ANLFloatType f);
-        CImplicitBrightContrast(ANLFloatType s,CImplicitModuleBase *  b,ANLFloatType t,CImplicitModuleBase *  f);
-        CImplicitBrightContrast(ANLFloatType s,CImplicitModuleBase *  b,CImplicitModuleBase *  t,ANLFloatType f);
-        CImplicitBrightContrast(ANLFloatType s,CImplicitModuleBase *  b,CImplicitModuleBase *  t,CImplicitModuleBase *  f);
-        CImplicitBrightContrast(CImplicitModuleBase *  s,ANLFloatType b,ANLFloatType t,ANLFloatType f);
-        CImplicitBrightContrast(CImplicitModuleBase *  s,ANLFloatType b,ANLFloatType t,CImplicitModuleBase *  f);
-        CImplicitBrightContrast(CImplicitModuleBase *  s,ANLFloatType b,CImplicitModuleBase *  t,ANLFloatType f);
-        CImplicitBrightContrast(CImplicitModuleBase *  s,ANLFloatType b,CImplicitModuleBase *  t,CImplicitModuleBase *  f);
-        CImplicitBrightContrast(CImplicitModuleBase *  s,CImplicitModuleBase *  b,ANLFloatType t,ANLFloatType f);
-        CImplicitBrightContrast(CImplicitModuleBase *  s,CImplicitModuleBase *  b,ANLFloatType t,CImplicitModuleBase *  f);
-        CImplicitBrightContrast(CImplicitModuleBase *  s,CImplicitModuleBase *  b,CImplicitModuleBase *  t,ANLFloatType f);
+        CImplicitBrightContrast(double s,double b,double t,double f);
+        CImplicitBrightContrast(double s,double b,double t,CImplicitModuleBase *  f);
+        CImplicitBrightContrast(double s,double b,CImplicitModuleBase *  t,double f);
+        CImplicitBrightContrast(double s,double b,CImplicitModuleBase *  t,CImplicitModuleBase *  f);
+        CImplicitBrightContrast(double s,CImplicitModuleBase *  b,double t,double f);
+        CImplicitBrightContrast(double s,CImplicitModuleBase *  b,double t,CImplicitModuleBase *  f);
+        CImplicitBrightContrast(double s,CImplicitModuleBase *  b,CImplicitModuleBase *  t,double f);
+        CImplicitBrightContrast(double s,CImplicitModuleBase *  b,CImplicitModuleBase *  t,CImplicitModuleBase *  f);
+        CImplicitBrightContrast(CImplicitModuleBase *  s,double b,double t,double f);
+        CImplicitBrightContrast(CImplicitModuleBase *  s,double b,double t,CImplicitModuleBase *  f);
+        CImplicitBrightContrast(CImplicitModuleBase *  s,double b,CImplicitModuleBase *  t,double f);
+        CImplicitBrightContrast(CImplicitModuleBase *  s,double b,CImplicitModuleBase *  t,CImplicitModuleBase *  f);
+        CImplicitBrightContrast(CImplicitModuleBase *  s,CImplicitModuleBase *  b,double t,double f);
+        CImplicitBrightContrast(CImplicitModuleBase *  s,CImplicitModuleBase *  b,double t,CImplicitModuleBase *  f);
+        CImplicitBrightContrast(CImplicitModuleBase *  s,CImplicitModuleBase *  b,CImplicitModuleBase *  t,double f);
         CImplicitBrightContrast(CImplicitModuleBase *  s,CImplicitModuleBase *  b,CImplicitModuleBase *  t,CImplicitModuleBase *  f);
 
         ~CImplicitBrightContrast();
 
         void setSource(CImplicitModuleBase * m);
-        void setSource(ANLFloatType v);
+        void setSource(double v);
 
-        void setBrightness(ANLFloatType b);
-        void setContrastThreshold(ANLFloatType t);
-        void setContrastFactor(ANLFloatType t);
+        void setBrightness(double b);
+        void setContrastThreshold(double t);
+        void setContrastFactor(double t);
         void setBrightness(CImplicitModuleBase * m);
         void setContrastThreshold(CImplicitModuleBase * m);
         void setContrastFactor(CImplicitModuleBase * m);
 
-        ANLFloatType get(ANLFloatType x, ANLFloatType y);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w, ANLFloatType u, ANLFloatType v);
+        double get(double x, double y);
+        double get(double x, double y, double z);
+        double get(double x, double y, double z, double w);
+        double get(double x, double y, double z, double w, double u, double v);
         protected:
         CScalarParameter m_source;
         CScalarParameter m_bright, m_threshold, m_factor;
@@ -50,87 +50,87 @@ namespace anl
 #endif
 #include "implicitbrightcontrast.h"
 
-namespace anl
+namespace NoiseLibrary
 {
     CImplicitBrightContrast::CImplicitBrightContrast() : CImplicitModuleBase(), m_source(0.0), m_bright(0.0), m_threshold(0.0), m_factor(1.0){}
-    CImplicitBrightContrast::CImplicitBrightContrast(ANLFloatType s,ANLFloatType b,ANLFloatType t,ANLFloatType f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
-    CImplicitBrightContrast::CImplicitBrightContrast(ANLFloatType s,ANLFloatType b,ANLFloatType t,CImplicitModuleBase *  f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
-    CImplicitBrightContrast::CImplicitBrightContrast(ANLFloatType s,ANLFloatType b,CImplicitModuleBase *  t,ANLFloatType f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
-    CImplicitBrightContrast::CImplicitBrightContrast(ANLFloatType s,ANLFloatType b,CImplicitModuleBase *  t,CImplicitModuleBase *  f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
-    CImplicitBrightContrast::CImplicitBrightContrast(ANLFloatType s,CImplicitModuleBase *  b,ANLFloatType t,ANLFloatType f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
-    CImplicitBrightContrast::CImplicitBrightContrast(ANLFloatType s,CImplicitModuleBase *  b,ANLFloatType t,CImplicitModuleBase *  f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
-    CImplicitBrightContrast::CImplicitBrightContrast(ANLFloatType s,CImplicitModuleBase *  b,CImplicitModuleBase *  t,ANLFloatType f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
-    CImplicitBrightContrast::CImplicitBrightContrast(ANLFloatType s,CImplicitModuleBase *  b,CImplicitModuleBase *  t,CImplicitModuleBase *  f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
-    CImplicitBrightContrast::CImplicitBrightContrast(CImplicitModuleBase *  s,ANLFloatType b,ANLFloatType t,ANLFloatType f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
-    CImplicitBrightContrast::CImplicitBrightContrast(CImplicitModuleBase *  s,ANLFloatType b,ANLFloatType t,CImplicitModuleBase *  f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
-    CImplicitBrightContrast::CImplicitBrightContrast(CImplicitModuleBase *  s,ANLFloatType b,CImplicitModuleBase *  t,ANLFloatType f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
-    CImplicitBrightContrast::CImplicitBrightContrast(CImplicitModuleBase *  s,ANLFloatType b,CImplicitModuleBase *  t,CImplicitModuleBase *  f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
-    CImplicitBrightContrast::CImplicitBrightContrast(CImplicitModuleBase *  s,CImplicitModuleBase *  b,ANLFloatType t,ANLFloatType f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
-    CImplicitBrightContrast::CImplicitBrightContrast(CImplicitModuleBase *  s,CImplicitModuleBase *  b,ANLFloatType t,CImplicitModuleBase *  f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
-    CImplicitBrightContrast::CImplicitBrightContrast(CImplicitModuleBase *  s,CImplicitModuleBase *  b,CImplicitModuleBase *  t,ANLFloatType f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
+    CImplicitBrightContrast::CImplicitBrightContrast(double s,double b,double t,double f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
+    CImplicitBrightContrast::CImplicitBrightContrast(double s,double b,double t,CImplicitModuleBase *  f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
+    CImplicitBrightContrast::CImplicitBrightContrast(double s,double b,CImplicitModuleBase *  t,double f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
+    CImplicitBrightContrast::CImplicitBrightContrast(double s,double b,CImplicitModuleBase *  t,CImplicitModuleBase *  f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
+    CImplicitBrightContrast::CImplicitBrightContrast(double s,CImplicitModuleBase *  b,double t,double f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
+    CImplicitBrightContrast::CImplicitBrightContrast(double s,CImplicitModuleBase *  b,double t,CImplicitModuleBase *  f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
+    CImplicitBrightContrast::CImplicitBrightContrast(double s,CImplicitModuleBase *  b,CImplicitModuleBase *  t,double f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
+    CImplicitBrightContrast::CImplicitBrightContrast(double s,CImplicitModuleBase *  b,CImplicitModuleBase *  t,CImplicitModuleBase *  f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
+    CImplicitBrightContrast::CImplicitBrightContrast(CImplicitModuleBase *  s,double b,double t,double f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
+    CImplicitBrightContrast::CImplicitBrightContrast(CImplicitModuleBase *  s,double b,double t,CImplicitModuleBase *  f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
+    CImplicitBrightContrast::CImplicitBrightContrast(CImplicitModuleBase *  s,double b,CImplicitModuleBase *  t,double f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
+    CImplicitBrightContrast::CImplicitBrightContrast(CImplicitModuleBase *  s,double b,CImplicitModuleBase *  t,CImplicitModuleBase *  f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
+    CImplicitBrightContrast::CImplicitBrightContrast(CImplicitModuleBase *  s,CImplicitModuleBase *  b,double t,double f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
+    CImplicitBrightContrast::CImplicitBrightContrast(CImplicitModuleBase *  s,CImplicitModuleBase *  b,double t,CImplicitModuleBase *  f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
+    CImplicitBrightContrast::CImplicitBrightContrast(CImplicitModuleBase *  s,CImplicitModuleBase *  b,CImplicitModuleBase *  t,double f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
     CImplicitBrightContrast::CImplicitBrightContrast(CImplicitModuleBase *  s,CImplicitModuleBase *  b,CImplicitModuleBase *  t,CImplicitModuleBase *  f) : CImplicitModuleBase(), m_source(s), m_bright(b), m_threshold(t), m_factor(f) {}
     CImplicitBrightContrast::~CImplicitBrightContrast(){}
 
     void CImplicitBrightContrast::setSource(CImplicitModuleBase * m){m_source.set(m);}
-    void CImplicitBrightContrast::setSource(ANLFloatType v){m_source.set(v);}
+    void CImplicitBrightContrast::setSource(double v){m_source.set(v);}
 
-    void CImplicitBrightContrast::setBrightness(ANLFloatType b){m_bright.set(b);}
-    void CImplicitBrightContrast::setContrastThreshold(ANLFloatType t){m_threshold.set(t);}
-    void CImplicitBrightContrast::setContrastFactor(ANLFloatType t){m_factor.set(t);}
+    void CImplicitBrightContrast::setBrightness(double b){m_bright.set(b);}
+    void CImplicitBrightContrast::setContrastThreshold(double t){m_threshold.set(t);}
+    void CImplicitBrightContrast::setContrastFactor(double t){m_factor.set(t);}
     void CImplicitBrightContrast::setBrightness(CImplicitModuleBase * b){m_bright.set(b);}
     void CImplicitBrightContrast::setContrastThreshold(CImplicitModuleBase * t){m_threshold.set(t);}
     void CImplicitBrightContrast::setContrastFactor(CImplicitModuleBase * t){m_factor.set(t);}
 
-    ANLFloatType CImplicitBrightContrast::get(ANLFloatType x, ANLFloatType y)
+    double CImplicitBrightContrast::get(double x, double y)
     {
-        ANLFloatType v=m_source.get(x,y);
+        double v=m_source.get(x,y);
         // Apply brightness
         v+=m_bright.get(x,y);
 
         // Subtract threshold, scale by factor, add threshold
-        ANLFloatType threshold=m_threshold.get(x,y);
+        double threshold=m_threshold.get(x,y);
         v-=threshold;
         v*=m_factor.get(x,y);
         v+=threshold;
         return v;
     }
 
-    ANLFloatType CImplicitBrightContrast::get(ANLFloatType x, ANLFloatType y, ANLFloatType z)
+    double CImplicitBrightContrast::get(double x, double y, double z)
     {
-        ANLFloatType v=m_source.get(x,y,z);
+        double v=m_source.get(x,y,z);
         // Apply brightness
         v+=m_bright.get(x,y,z);
 
         // Subtract threshold, scale by factor, add threshold
-        ANLFloatType threshold=m_threshold.get(x,y,z);
+        double threshold=m_threshold.get(x,y,z);
         v-=threshold;
         v*=m_factor.get(x,y,z);
         v+=threshold;
         return v;
     }
 
-    ANLFloatType CImplicitBrightContrast::get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w)
+    double CImplicitBrightContrast::get(double x, double y, double z, double w)
     {
-        ANLFloatType v=m_source.get(x,y,z,w);
+        double v=m_source.get(x,y,z,w);
         // Apply brightness
         v+=m_bright.get(x,y,z,w);
 
         // Subtract threshold, scale by factor, add threshold
-        ANLFloatType threshold=m_threshold.get(x,y,z,w);
+        double threshold=m_threshold.get(x,y,z,w);
         v-=threshold;
         v*=m_factor.get(x,y,z,w);
         v+=threshold;
         return v;
     }
 
-    ANLFloatType CImplicitBrightContrast::get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w, ANLFloatType u, ANLFloatType v)
+    double CImplicitBrightContrast::get(double x, double y, double z, double w, double u, double v)
     {
-        ANLFloatType c=m_source.get(x,y,z,w,u,v);
+        double c=m_source.get(x,y,z,w,u,v);
         // Apply brightness
         c+=m_bright.get(x,y,z,w,u,v);
 
         // Subtract threshold, scale by factor, add threshold
-        ANLFloatType threshold=m_threshold.get(x,y,z,w,u,v);
+        double threshold=m_threshold.get(x,y,z,w,u,v);
         c-=threshold;
         c*=m_factor.get(x,y,z,w,u,v);
         c+=threshold;

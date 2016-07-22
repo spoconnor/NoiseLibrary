@@ -1,112 +1,83 @@
-#ifndef IMPLICIT_CLAMP_H
-#define IMPLICIT_CLAMP_H
-#include "implicitmodulebase.h"
-
-namespace anl
+namespace NoiseLibrary
 {
-    class CImplicitClamp : public CImplicitModuleBase
+
+
+    class CImplicitClamp : CImplicitModuleBase
     {
-        public:
-        CImplicitClamp();
-        CImplicitClamp(ANLFloatType source, ANLFloatType low, ANLFloatType high);
-        CImplicitClamp(ANLFloatType source, ANLFloatType low, CImplicitModuleBase *  high);
-        CImplicitClamp(ANLFloatType source, CImplicitModuleBase *  low, ANLFloatType high);
-        CImplicitClamp(ANLFloatType source, CImplicitModuleBase *  low, CImplicitModuleBase *  high);
-        CImplicitClamp(CImplicitModuleBase *  source, ANLFloatType low, ANLFloatType high);
-        CImplicitClamp(CImplicitModuleBase *  source, ANLFloatType low, CImplicitModuleBase *  high);
-        CImplicitClamp(CImplicitModuleBase *  source, CImplicitModuleBase *  low, ANLFloatType high);
-        CImplicitClamp(CImplicitModuleBase *  source, CImplicitModuleBase *  low, CImplicitModuleBase *  high);
+        private CScalarParameter m_source, m_low, m_high;
 
-        ~CImplicitClamp();
+        public CImplicitClamp() :base()
+        { m_source = new CScalarParameter(0.0); m_low = new CScalarParameter(0.0); m_high = new CScalarParameter(1.0); }
+        public CImplicitClamp(double source, double low, double high) : base()
+        { m_source = new CScalarParameter(source); m_low = new CScalarParameter(low); m_high = new CScalarParameter(high);  }
+        public CImplicitClamp(double source, double low, CImplicitModuleBase high) : base()
+        { m_source = new CScalarParameter(source); m_low = new CScalarParameter(low); m_high = new CScalarParameter(high);  }
+        public CImplicitClamp(double source, CImplicitModuleBase low, double high) : base()
+        { m_source = new CScalarParameter(source); m_low = new CScalarParameter(low); m_high = new CScalarParameter(high); }
+        public CImplicitClamp(double source, CImplicitModuleBase low, CImplicitModuleBase high) : base()
+        { m_source = new CScalarParameter(source); m_low = new CScalarParameter(low); m_high = new CScalarParameter(high); }
+        public CImplicitClamp(CImplicitModuleBase source, double low, double high) : base()
+        { m_source = new CScalarParameter(source); m_low = new CScalarParameter(low); m_high = new CScalarParameter(high); }
+        public CImplicitClamp(CImplicitModuleBase source, double low, CImplicitModuleBase high) : base()
+        { m_source = new CScalarParameter(source); m_low = new CScalarParameter(low); m_high = new CScalarParameter(high);  }
+        public CImplicitClamp(CImplicitModuleBase source, CImplicitModuleBase low, double high) : base()
+        { m_source = new CScalarParameter(source); m_low = new CScalarParameter(low); m_high = new CScalarParameter(high); }
+        public CImplicitClamp(CImplicitModuleBase source, CImplicitModuleBase low, CImplicitModuleBase high) : base()
+        { m_source = new CScalarParameter(source); m_low = new CScalarParameter(low); m_high = new CScalarParameter(high); }
 
-        void setRange(ANLFloatType low, ANLFloatType high);
-        void setRange(ANLFloatType low, CImplicitModuleBase * high);
-        void setRange(CImplicitModuleBase * low, ANLFloatType high);
-        void setRange(CImplicitModuleBase * low, CImplicitModuleBase * high);
+        private void setRange(double low, double high)
+        {
+            m_low.set(low);
+            m_high.set(high);
+        }
 
-        void setSource(ANLFloatType b);
-        void setSource(CImplicitModuleBase * b);
+        private void setRange(double low, CImplicitModuleBase high)
+        {
+            m_low.set(low);
+            m_high.set(high);
+        }
 
-        ANLFloatType get(ANLFloatType x, ANLFloatType y);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w, ANLFloatType u, ANLFloatType v);
+        private void setRange(CImplicitModuleBase low, double high)
+        {
+            m_low.set(low);
+            m_high.set(high);
+        }
 
-        protected:
-        //CImplicitModuleBase * m_source;
-        //ANLFloatType m_low, m_high;
-        CScalarParameter m_source, m_low, m_high;
-    };
-};
-#endif
-#include "implicitclamp.h"
-#include "utility.h"
+        private void setRange(CImplicitModuleBase low, CImplicitModuleBase high)
+        {
+            m_low.set(low);
+            m_high.set(high);
+        }
 
-namespace anl
-{
-	CImplicitClamp::CImplicitClamp():CImplicitModuleBase(), m_source(0.0), m_low(0.0), m_high(1.0){};
-    CImplicitClamp::CImplicitClamp(ANLFloatType source, ANLFloatType low, ANLFloatType high) : CImplicitModuleBase(), m_source(source), m_low(low), m_high(high){}
-    CImplicitClamp::CImplicitClamp(ANLFloatType source, ANLFloatType low, CImplicitModuleBase *  high) : CImplicitModuleBase(), m_source(source), m_low(low), m_high(high){}
-    CImplicitClamp::CImplicitClamp(ANLFloatType source, CImplicitModuleBase *  low, ANLFloatType high) : CImplicitModuleBase(), m_source(source), m_low(low), m_high(high){}
-    CImplicitClamp::CImplicitClamp(ANLFloatType source, CImplicitModuleBase *  low, CImplicitModuleBase *  high) : CImplicitModuleBase(), m_source(source), m_low(low), m_high(high){}
-    CImplicitClamp::CImplicitClamp(CImplicitModuleBase *  source, ANLFloatType low, ANLFloatType high) : CImplicitModuleBase(), m_source(source), m_low(low), m_high(high){}
-    CImplicitClamp::CImplicitClamp(CImplicitModuleBase *  source, ANLFloatType low, CImplicitModuleBase *  high) : CImplicitModuleBase(), m_source(source), m_low(low), m_high(high){}
-    CImplicitClamp::CImplicitClamp(CImplicitModuleBase *  source, CImplicitModuleBase *  low, ANLFloatType high) : CImplicitModuleBase(), m_source(source), m_low(low), m_high(high){}
-    CImplicitClamp::CImplicitClamp(CImplicitModuleBase *  source, CImplicitModuleBase *  low, CImplicitModuleBase *  high) : CImplicitModuleBase(), m_source(source), m_low(low), m_high(high){}
-    CImplicitClamp::~CImplicitClamp(){}
 
-    void CImplicitClamp::setRange(ANLFloatType low, ANLFloatType high)
-    {
-        m_low.set(low);
-        m_high.set(high);
+        private void setSource(double b)
+        {
+            m_source.set(b);
+        }
+
+        private void setSource(CImplicitModuleBase b)
+        {
+            m_source.set(b);
+        }
+
+        public override double get(double x, double y)
+        {
+            return Misc.Clamp(m_source.get(x, y), m_low.get(x, y), m_high.get(x, y));
+        }
+
+        public override double get(double x, double y, double z)
+        {
+            return Misc.Clamp(m_source.get(x, y, z), m_low.get(x, y, z), m_high.get(x, y, z));
+        }
+
+        public override double get(double x, double y, double z, double w)
+        {
+            return Misc.Clamp(m_source.get(x, y, z, w), m_low.get(x, y, z, w), m_high.get(x, y, z, w));
+        }
+
+        public override double get(double x, double y, double z, double w, double u, double v)
+        {
+            return Misc.Clamp(m_source.get(x, y, z, w, u, v), m_low.get(x, y, z, w, u, v), m_high.get(x, y, z, w, u, v));
+        }
     }
-
-    void CImplicitClamp::setRange(ANLFloatType low, CImplicitModuleBase * high)
-    {
-        m_low.set(low);
-        m_high.set(high);
-    }
-
-    void CImplicitClamp::setRange(CImplicitModuleBase * low, ANLFloatType high)
-    {
-        m_low.set(low);
-        m_high.set(high);
-    }
-
-    void CImplicitClamp::setRange(CImplicitModuleBase * low, CImplicitModuleBase * high)
-    {
-        m_low.set(low);
-        m_high.set(high);
-    }
-
-
-    void CImplicitClamp::setSource(ANLFloatType b)
-    {
-        m_source.set(b);
-    }
-
-    void CImplicitClamp::setSource(CImplicitModuleBase * b)
-    {
-        m_source.set(b);
-    }
-
-    ANLFloatType CImplicitClamp::get(ANLFloatType x, ANLFloatType y)
-    {
-        return clamp(m_source.get(x,y),m_low.get(x,y),m_high.get(x,y));
-    }
-
-    ANLFloatType CImplicitClamp::get(ANLFloatType x, ANLFloatType y, ANLFloatType z)
-    {
-        return clamp(m_source.get(x,y,z),m_low.get(x,y,z),m_high.get(x,y,z));
-    }
-
-    ANLFloatType CImplicitClamp::get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w)
-    {
-        return clamp(m_source.get(x,y,z,w),m_low.get(x,y,z,w),m_high.get(x,y,z,w));
-    }
-
-    ANLFloatType CImplicitClamp::get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w, ANLFloatType u, ANLFloatType v)
-    {
-        return clamp(m_source.get(x,y,z,w,u,v),m_low.get(x,y,z,w,u,v),m_high.get(x,y,z,w,u,v));
-    }
-};
+}

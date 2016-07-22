@@ -5,30 +5,30 @@
 #include "../Imaging/templates/tcurve.h"
 
 #include <vector>
-namespace anl
+namespace NoiseLibrary
 {
     class CImplicitCurve : public CImplicitModuleBase
     {
         public:
         CImplicitCurve();
-        CImplicitCurve(ANLFloatType s, int interptype=LINEAR);
+        CImplicitCurve(double s, int interptype=LINEAR);
         CImplicitCurve(CImplicitModuleBase * s, int interptype=LINEAR);
 
         ~CImplicitCurve();
 
-        void pushPoint(ANLFloatType t, ANLFloatType v);
+        void pushPoint(double t, double v);
         void clearCurve();
-        void setSource(ANLFloatType t);
+        void setSource(double t);
         void setSource(CImplicitModuleBase * m);
         void setInterpType(int type);
 
-        ANLFloatType get(ANLFloatType x, ANLFloatType y);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w, ANLFloatType u, ANLFloatType v);
+        double get(double x, double y);
+        double get(double x, double y, double z);
+        double get(double x, double y, double z, double w);
+        double get(double x, double y, double z, double w, double u, double v);
 
         protected:
-        TCurve<ANLFloatType> m_curve;
+        TCurve<double> m_curve;
         CScalarParameter m_source;
         int m_type;
     };
@@ -37,14 +37,14 @@ namespace anl
 #endif
 #include "implicitcurve.h"
 
-namespace anl
+namespace NoiseLibrary
 {
     CImplicitCurve::CImplicitCurve() : CImplicitModuleBase(), m_source(0.0), m_type(LINEAR){}
-    CImplicitCurve::CImplicitCurve(ANLFloatType s, int interptype) : CImplicitModuleBase(), m_source(s), m_type(interptype){}
+    CImplicitCurve::CImplicitCurve(double s, int interptype) : CImplicitModuleBase(), m_source(s), m_type(interptype){}
     CImplicitCurve::CImplicitCurve(CImplicitModuleBase * s, int interptype) : CImplicitModuleBase(), m_source(s), m_type(interptype){}
     CImplicitCurve::~CImplicitCurve(){}
 
-    void CImplicitCurve::pushPoint(ANLFloatType t, ANLFloatType v)
+    void CImplicitCurve::pushPoint(double t, double v)
     {
         m_curve.pushPoint(t,v);
     }
@@ -61,7 +61,7 @@ namespace anl
         if(m_type>QUINTIC) m_type=QUINTIC;
     }
 
-    void CImplicitCurve::setSource(ANLFloatType t)
+    void CImplicitCurve::setSource(double t)
     {
         m_source.set(t);
     }
@@ -70,9 +70,9 @@ namespace anl
         m_source.set(m);
     }
 
-    ANLFloatType CImplicitCurve::get(ANLFloatType x, ANLFloatType y)
+    double CImplicitCurve::get(double x, double y)
     {
-        ANLFloatType t=m_source.get(x,y);
+        double t=m_source.get(x,y);
         switch(m_type)
         {
             case NONE: return m_curve.noInterp(t); break;
@@ -83,9 +83,9 @@ namespace anl
         }
     }
 
-    ANLFloatType CImplicitCurve::get(ANLFloatType x, ANLFloatType y, ANLFloatType z)
+    double CImplicitCurve::get(double x, double y, double z)
     {
-        ANLFloatType t=m_source.get(x,y,z);
+        double t=m_source.get(x,y,z);
         switch(m_type)
         {
             case NONE: return m_curve.noInterp(t); break;
@@ -96,9 +96,9 @@ namespace anl
         }
     }
 
-    ANLFloatType CImplicitCurve::get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w)
+    double CImplicitCurve::get(double x, double y, double z, double w)
     {
-        ANLFloatType t=m_source.get(x,y,z,w);
+        double t=m_source.get(x,y,z,w);
         switch(m_type)
         {
             case NONE: return m_curve.noInterp(t); break;
@@ -109,9 +109,9 @@ namespace anl
         }
     }
 
-    ANLFloatType CImplicitCurve::get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w, ANLFloatType u, ANLFloatType v)
+    double CImplicitCurve::get(double x, double y, double z, double w, double u, double v)
     {
-        ANLFloatType t=m_source.get(x,y,z,w,u,v);
+        double t=m_source.get(x,y,z,w,u,v);
         switch(m_type)
         {
             case NONE: return m_curve.noInterp(t); break;

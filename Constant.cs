@@ -1,41 +1,19 @@
-#ifndef IMPLICITCONSTANT_H
-#define IMPLICITCONSTANT_H
-#include "implicitmodulebase.h"
-
-namespace anl
+namespace NoiseLibrary
 {
-    class CImplicitConstant : public CImplicitModuleBase
+    class CImplicitConstant : CImplicitModuleBase
     {
-        public:
-        CImplicitConstant();
-        CImplicitConstant(ANLFloatType c);
-        ~CImplicitConstant();
+        private double m_constant;
 
-        void setConstant(ANLFloatType c);
+        public CImplicitConstant() : base()
+        { m_constant = 0.0; }
+        public CImplicitConstant(double c) : base()
+        { m_constant = c; }
 
-        ANLFloatType get(ANLFloatType x, ANLFloatType y);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w, ANLFloatType u, ANLFloatType v);
+        private void setConstant(double c) { m_constant = c; }
 
-        protected:
-        ANLFloatType m_constant;
-    };
-};
-
-#endif
-#include "implicitconstant.h"
-
-namespace anl
-{
-    CImplicitConstant::CImplicitConstant() : CImplicitModuleBase(), m_constant(0){}
-    CImplicitConstant::CImplicitConstant(ANLFloatType c) : CImplicitModuleBase(), m_constant(c){}
-	CImplicitConstant::~CImplicitConstant(){}
-
-	void CImplicitConstant::setConstant(ANLFloatType c){m_constant=c;}
-
-	ANLFloatType CImplicitConstant::get(ANLFloatType x, ANLFloatType y){return m_constant;}
-	ANLFloatType CImplicitConstant::get(ANLFloatType x, ANLFloatType y, ANLFloatType z){return m_constant;}
-	ANLFloatType CImplicitConstant::get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w){return m_constant;}
-	ANLFloatType CImplicitConstant::get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w, ANLFloatType u, ANLFloatType v){return m_constant;}
-};
+        public override double get(double x, double y) { return m_constant; }
+        public override double get(double x, double y, double z) { return m_constant; }
+        public override double get(double x, double y, double z, double w) { return m_constant; }
+        public override double get(double x, double y, double z, double w, double u, double v) { return m_constant; }
+    }
+}

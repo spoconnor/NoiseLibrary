@@ -151,7 +151,7 @@ namespace NoiseLibrary
                     double lower = threshold - falloff;
                     double upper = threshold + falloff;
                     double blend = Utility.quintic_blend((control - lower) / (upper - lower));
-                    return anl.lerp(blend, m_low.get(x, y), m_high.get(x, y));
+                    return Misc.Lerp(blend, m_low.get(x, y), m_high.get(x, y));
                 }
             }
             else
@@ -185,7 +185,7 @@ namespace NoiseLibrary
                     double lower = threshold - falloff;
                     double upper = threshold + falloff;
                     double blend = Utility.quintic_blend((control - lower) / (upper - lower));
-                    return anl.lerp(blend, m_low.get(x, y, z), m_high.get(x, y, z));
+                    return Misc.Lerp(blend, m_low.get(x, y, z), m_high.get(x, y, z));
                 }
             }
             else
@@ -220,7 +220,7 @@ namespace NoiseLibrary
                     double lower = threshold - falloff;
                     double upper = threshold + falloff;
                     double blend = Utility.quintic_blend((control - lower) / (upper - lower));
-                    return anl.lerp(blend, m_low.get(x, y, z, w), m_high.get(x, y, z, w));
+                    return Misc.Lerp(blend, m_low.get(x, y, z, w), m_high.get(x, y, z, w));
                 }
             }
             else
@@ -254,7 +254,7 @@ namespace NoiseLibrary
                     double lower = threshold - falloff;
                     double upper = threshold + falloff;
                     double blend = Utility.quintic_blend((control - lower) / (upper - lower));
-                    return anl.lerp(blend, m_low.get(x, y, z, w, u, v), m_high.get(x, y, z, w, u, v));
+                    return Misc.Lerp(blend, m_low.get(x, y, z, w, u, v), m_high.get(x, y, z, w, u, v));
                 }
             }
             else

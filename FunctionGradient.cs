@@ -1,10 +1,6 @@
-#ifndef IMPLICIT_FUNCTIONGRADIENT_H
-#define IMPLICIT_FUNCTIONGRADIENT_H
-#include "implicitmodulebase.h"
-
-namespace anl
+namespace NoiseLibrary
 {
-    enum EFunctionGradientAxis
+    public enum EFunctionGradientAxis
     {
         X_AXIS,
         Y_AXIS,
@@ -14,111 +10,90 @@ namespace anl
         V_AXIS
     };
 
-    class CImplicitFunctionGradient : public CImplicitModuleBase
+    public class CImplicitFunctionGradient : CImplicitModuleBase
     {
-        public:
-        CImplicitFunctionGradient();
-        CImplicitFunctionGradient(ANLFloatType s, int axis=X_AXIS, ANLFloatType spacing=0.001);
-        CImplicitFunctionGradient(CImplicitModuleBase * s, int axis=X_AXIS, ANLFloatType spacing=0.001);
-        ~CImplicitFunctionGradient();
 
-        void setSource(ANLFloatType v);
-        void setSource(CImplicitModuleBase * m);
-        void setAxis(int axis);
-        void setSpacing(ANLFloatType s);
+        private CScalarParameter m_source;
+        private EFunctionGradientAxis m_axis;
+        private double m_spacing;
 
-        ANLFloatType get(ANLFloatType x, ANLFloatType y);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w, ANLFloatType u, ANLFloatType v);
+        public CImplicitFunctionGradient() : base()
+        { m_source = null; m_axis = EFunctionGradientAxis.X_AXIS; m_spacing = 0.001; }
+        public CImplicitFunctionGradient(double s, EFunctionGradientAxis axis = EFunctionGradientAxis.X_AXIS, double spacing = 0.001) : base()
+        { m_source = new CScalarParameter(s); m_axis = axis; m_spacing = spacing; }
+        public CImplicitFunctionGradient(CImplicitModuleBase s, EFunctionGradientAxis axis = EFunctionGradientAxis.X_AXIS, double spacing = 0.001) : base()
+        { m_source = new CScalarParameter(s); m_axis = axis; m_spacing = spacing; }
 
-        protected:
-        CScalarParameter m_source;
-        int m_axis;
-        ANLFloatType m_spacing;
-
-    };
-};
-
-#endif
-#include "implicitfunctiongradient.h"
-
-namespace anl
-{
-    CImplicitFunctionGradient::CImplicitFunctionGradient() : CImplicitModuleBase(), m_source(0.0), m_axis(X_AXIS), m_spacing(0.001){}
-    CImplicitFunctionGradient::CImplicitFunctionGradient(ANLFloatType s, int axis, ANLFloatType spacing) : CImplicitModuleBase(), m_source(s), m_axis(axis), m_spacing(spacing){}
-    CImplicitFunctionGradient::CImplicitFunctionGradient(CImplicitModuleBase * s, int axis, ANLFloatType spacing) : CImplicitModuleBase(), m_source(s), m_axis(axis), m_spacing(spacing){}
-    CImplicitFunctionGradient::~CImplicitFunctionGradient(){}
-
-    void CImplicitFunctionGradient::setSource(ANLFloatType v)
-    {
-        m_source.set(v);
-    }
-    void CImplicitFunctionGradient::setSource(CImplicitModuleBase * m)
-    {
-        m_source.set(m);
-    }
-    void CImplicitFunctionGradient::setAxis(int axis)
-    {
-        m_axis=axis;
-        if(m_axis<X_AXIS) m_axis=X_AXIS;
-        if(m_axis>V_AXIS) m_axis=V_AXIS;
-    }
-    void CImplicitFunctionGradient::setSpacing(ANLFloatType s)
-    {
-        m_spacing=s;
-    }
-
-    ANLFloatType CImplicitFunctionGradient::get(ANLFloatType x, ANLFloatType y)
-    {
-        switch(m_axis)
+        void setSource(double v)
         {
-            case X_AXIS: return (m_source.get(x-m_spacing,y)-m_source.get(x+m_spacing,y))/m_spacing; break;
-            case Y_AXIS: return (m_source.get(x,y-m_spacing)-m_source.get(x,y+m_spacing))/m_spacing; break;
-            case Z_AXIS: return 0.0; break;
-            case W_AXIS: return 0.0; break;
-            case U_AXIS: return 0.0; break;
-            case V_AXIS: return 0.0; break;
+            m_source.set(v);
         }
-        return 0.0;
-    }
-    ANLFloatType CImplicitFunctionGradient::get(ANLFloatType x, ANLFloatType y, ANLFloatType z)
-    {
-        switch(m_axis)
+        void setSource(CImplicitModuleBase m)
         {
-            case X_AXIS: return (m_source.get(x-m_spacing,y,z)-m_source.get(x+m_spacing,y,z))/m_spacing; break;
-            case Y_AXIS: return (m_source.get(x,y-m_spacing,z)-m_source.get(x,y+m_spacing,z))/m_spacing; break;
-            case Z_AXIS: return (m_source.get(x,y,z-m_spacing)-m_source.get(x,y,z+m_spacing))/m_spacing; break;
-            case W_AXIS: return 0.0; break;
-            case U_AXIS: return 0.0; break;
-            case V_AXIS: return 0.0; break;
+            m_source.set(m);
         }
-        return 0.0;
-    }
-    ANLFloatType CImplicitFunctionGradient::get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w)
-    {
-        switch(m_axis)
+        void setAxis(EFunctionGradientAxis axis)
         {
-            case X_AXIS: return (m_source.get(x-m_spacing,y,z,w)-m_source.get(x+m_spacing,y,z,w))/m_spacing; break;
-            case Y_AXIS: return (m_source.get(x,y-m_spacing,z,w)-m_source.get(x,y+m_spacing,z,w))/m_spacing; break;
-            case Z_AXIS: return (m_source.get(x,y,z-m_spacing,w)-m_source.get(x,y,z+m_spacing,w))/m_spacing; break;
-            case W_AXIS: return (m_source.get(x,y,z,w-m_spacing)-m_source.get(x,y,z,w+m_spacing))/m_spacing; break;
-            case U_AXIS: return 0.0; break;
-            case V_AXIS: return 0.0; break;
+            m_axis = axis;
+            if (m_axis < EFunctionGradientAxis.X_AXIS) m_axis = EFunctionGradientAxis.X_AXIS;
+            if (m_axis > EFunctionGradientAxis.V_AXIS) m_axis = EFunctionGradientAxis.V_AXIS;
         }
-        return 0.0;
-    }
-    ANLFloatType CImplicitFunctionGradient::get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w, ANLFloatType u, ANLFloatType v)
-    {
-        switch(m_axis)
+        void setSpacing(double s)
         {
-            case X_AXIS: return (m_source.get(x-m_spacing,y,z,w,u,v)-m_source.get(x+m_spacing,y,z,w,u,v))/m_spacing; break;
-            case Y_AXIS: return (m_source.get(x,y-m_spacing,z,w,u,v)-m_source.get(x,y+m_spacing,z,w,u,v))/m_spacing; break;
-            case Z_AXIS: return (m_source.get(x,y,z-m_spacing,w,u,v)-m_source.get(x,y,z+m_spacing,w,u,v))/m_spacing; break;
-            case W_AXIS: return (m_source.get(x,y,z,w-m_spacing,u,v)-m_source.get(x,y,z,w+m_spacing,u,v))/m_spacing; break;
-            case U_AXIS: return (m_source.get(x,y,z,w,u-m_spacing,v)-m_source.get(x,y,z,w,u+m_spacing,v))/m_spacing; break;
-            case V_AXIS: return (m_source.get(x,y,z,w,u,v-m_spacing)-m_source.get(x,y,z,w,u,v+m_spacing))/m_spacing; break;
+            m_spacing = s;
         }
-        return 0.0;
+
+        public override double get(double x, double y)
+        {
+            switch (m_axis)
+            {
+                case EFunctionGradientAxis.X_AXIS: return (m_source.get(x - m_spacing, y) - m_source.get(x + m_spacing, y)) / m_spacing; break;
+                case EFunctionGradientAxis.Y_AXIS: return (m_source.get(x, y - m_spacing) - m_source.get(x, y + m_spacing)) / m_spacing; break;
+                case EFunctionGradientAxis.Z_AXIS: return 0.0; break;
+                case EFunctionGradientAxis.W_AXIS: return 0.0; break;
+                case EFunctionGradientAxis.U_AXIS: return 0.0; break;
+                case EFunctionGradientAxis.V_AXIS: return 0.0; break;
+            }
+            return 0.0;
+        }
+        public override double get(double x, double y, double z)
+        {
+            switch (m_axis)
+            {
+                case EFunctionGradientAxis.X_AXIS: return (m_source.get(x - m_spacing, y, z) - m_source.get(x + m_spacing, y, z)) / m_spacing; break;
+                case EFunctionGradientAxis.Y_AXIS: return (m_source.get(x, y - m_spacing, z) - m_source.get(x, y + m_spacing, z)) / m_spacing; break;
+                case EFunctionGradientAxis.Z_AXIS: return (m_source.get(x, y, z - m_spacing) - m_source.get(x, y, z + m_spacing)) / m_spacing; break;
+                case EFunctionGradientAxis.W_AXIS: return 0.0; break;
+                case EFunctionGradientAxis.U_AXIS: return 0.0; break;
+                case EFunctionGradientAxis.V_AXIS: return 0.0; break;
+            }
+            return 0.0;
+        }
+        public override double get(double x, double y, double z, double w)
+        {
+            switch (m_axis)
+            {
+                case EFunctionGradientAxis.X_AXIS: return (m_source.get(x - m_spacing, y, z, w) - m_source.get(x + m_spacing, y, z, w)) / m_spacing; break;
+                case EFunctionGradientAxis.Y_AXIS: return (m_source.get(x, y - m_spacing, z, w) - m_source.get(x, y + m_spacing, z, w)) / m_spacing; break;
+                case EFunctionGradientAxis.Z_AXIS: return (m_source.get(x, y, z - m_spacing, w) - m_source.get(x, y, z + m_spacing, w)) / m_spacing; break;
+                case EFunctionGradientAxis.W_AXIS: return (m_source.get(x, y, z, w - m_spacing) - m_source.get(x, y, z, w + m_spacing)) / m_spacing; break;
+                case EFunctionGradientAxis.U_AXIS: return 0.0; break;
+                case EFunctionGradientAxis.V_AXIS: return 0.0; break;
+            }
+            return 0.0;
+        }
+        public override double get(double x, double y, double z, double w, double u, double v)
+        {
+            switch (m_axis)
+            {
+                case EFunctionGradientAxis.X_AXIS: return (m_source.get(x - m_spacing, y, z, w, u, v) - m_source.get(x + m_spacing, y, z, w, u, v)) / m_spacing; break;
+                case EFunctionGradientAxis.Y_AXIS: return (m_source.get(x, y - m_spacing, z, w, u, v) - m_source.get(x, y + m_spacing, z, w, u, v)) / m_spacing; break;
+                case EFunctionGradientAxis.Z_AXIS: return (m_source.get(x, y, z - m_spacing, w, u, v) - m_source.get(x, y, z + m_spacing, w, u, v)) / m_spacing; break;
+                case EFunctionGradientAxis.W_AXIS: return (m_source.get(x, y, z, w - m_spacing, u, v) - m_source.get(x, y, z, w + m_spacing, u, v)) / m_spacing; break;
+                case EFunctionGradientAxis.U_AXIS: return (m_source.get(x, y, z, w, u - m_spacing, v) - m_source.get(x, y, z, w, u + m_spacing, v)) / m_spacing; break;
+                case EFunctionGradientAxis.V_AXIS: return (m_source.get(x, y, z, w, u, v - m_spacing) - m_source.get(x, y, z, w, u, v + m_spacing)) / m_spacing; break;
+            }
+            return 0.0;
+        }
     }
-};
+}

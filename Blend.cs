@@ -1,120 +1,92 @@
-#ifndef IMPLICIT_BLEND_H
-#define IMPLICIT_BLEND_H
-#include "implicitmodulebase.h"
-
-namespace anl
+namespace NoiseLibrary
 {
 
-    class CImplicitBlend : public CImplicitModuleBase
+    public class CImplicitBlend : CImplicitModuleBase
     {
-    public:
-        CImplicitBlend();
-        CImplicitBlend(ANLFloatType low, ANLFloatType high, ANLFloatType control);
-        CImplicitBlend(ANLFloatType low, ANLFloatType high, CImplicitModuleBase * control);
-        CImplicitBlend(ANLFloatType low, CImplicitModuleBase * high, ANLFloatType control);
-        CImplicitBlend(CImplicitModuleBase * low, ANLFloatType high, ANLFloatType control);
-        CImplicitBlend(ANLFloatType low, CImplicitModuleBase * high, CImplicitModuleBase * control);
-        CImplicitBlend(CImplicitModuleBase * low, ANLFloatType high, CImplicitModuleBase * control);
-        CImplicitBlend(CImplicitModuleBase * low, CImplicitModuleBase * high, ANLFloatType control);
-        CImplicitBlend(CImplicitModuleBase * low, CImplicitModuleBase * high, CImplicitModuleBase * control);
-        ~CImplicitBlend();
+        private CScalarParameter m_low, m_high, m_control;
 
-        void setLowSource(CImplicitModuleBase * b);
-        void setHighSource(CImplicitModuleBase * b);
-        void setControlSource(CImplicitModuleBase * b);
-        void setLowSource(ANLFloatType v);
-        void setHighSource(ANLFloatType v);
-        void setControlSource(ANLFloatType v);
+        public CImplicitBlend() : base()
+        { m_low = new CScalarParameter(0.0); m_high = new CScalarParameter(0.0); m_control = new CScalarParameter(0.0); }
+        public CImplicitBlend(double low, double high, double control) : base()
+        { m_low = new CScalarParameter(low); m_high = new CScalarParameter(high); m_control = new CScalarParameter(control); }
+        public CImplicitBlend(double low, double high, CImplicitModuleBase control) : base()
+        { m_low = new CScalarParameter(low); m_high = new CScalarParameter(high); m_control = new CScalarParameter(control); }
+        public CImplicitBlend(double low, CImplicitModuleBase high, double control) : base()
+        { m_low = new CScalarParameter(low); m_high = new CScalarParameter(high); m_control = new CScalarParameter(control);  }
+        public CImplicitBlend(CImplicitModuleBase low, double high, double control) : base()
+        { m_low = new CScalarParameter(low); m_high = new CScalarParameter(high); m_control = new CScalarParameter(control);  }
+        public CImplicitBlend(double low, CImplicitModuleBase high, CImplicitModuleBase control) : base()
+        { m_low = new CScalarParameter(low); m_high = new CScalarParameter(high); m_control = new CScalarParameter(control);  }
+        public CImplicitBlend(CImplicitModuleBase low, double high, CImplicitModuleBase control) : base()
+        { m_low = new CScalarParameter(low); m_high = new CScalarParameter(high); m_control = new CScalarParameter(control);  }
+        public CImplicitBlend(CImplicitModuleBase low, CImplicitModuleBase high, double control) : base()
+        { m_low = new CScalarParameter(low); m_high = new CScalarParameter(high); m_control = new CScalarParameter(control);  }
+        public CImplicitBlend(CImplicitModuleBase low, CImplicitModuleBase high, CImplicitModuleBase control) : base()
+        { m_low = new CScalarParameter(low); m_high = new CScalarParameter(high); m_control = new CScalarParameter(control);  }
 
-        ANLFloatType get(ANLFloatType x, ANLFloatType y);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w, ANLFloatType u, ANLFloatType v);
-        protected:
-        CScalarParameter m_low,m_high,m_control;
 
-    };
-};
-#endif
-#include "implicitblend.h"
-#include "utility.h"
+        private void setLowSource(CImplicitModuleBase b)
+        {
+            m_low.set(b);
+        }
 
-namespace anl
-{
+        private void setHighSource(CImplicitModuleBase b)
+        {
+            m_high.set(b);
+        }
 
-    CImplicitBlend::CImplicitBlend(): CImplicitModuleBase(), m_low(0.0), m_high(0.0), m_control(0.0){}
-    CImplicitBlend::CImplicitBlend(ANLFloatType low, ANLFloatType high, ANLFloatType control) : CImplicitModuleBase(), m_low(low), m_high(high), m_control(control){}
-    CImplicitBlend::CImplicitBlend(ANLFloatType low, ANLFloatType high, CImplicitModuleBase * control) : CImplicitModuleBase(), m_low(low), m_high(high), m_control(control){}
-    CImplicitBlend::CImplicitBlend(ANLFloatType low, CImplicitModuleBase * high, ANLFloatType control) : CImplicitModuleBase(), m_low(low), m_high(high), m_control(control){}
-    CImplicitBlend::CImplicitBlend(CImplicitModuleBase * low, ANLFloatType high, ANLFloatType control) : CImplicitModuleBase(), m_low(low), m_high(high), m_control(control){}
-    CImplicitBlend::CImplicitBlend(ANLFloatType low, CImplicitModuleBase * high, CImplicitModuleBase * control) : CImplicitModuleBase(), m_low(low), m_high(high), m_control(control){}
-    CImplicitBlend::CImplicitBlend(CImplicitModuleBase * low, ANLFloatType high, CImplicitModuleBase * control) : CImplicitModuleBase(), m_low(low), m_high(high), m_control(control){}
-    CImplicitBlend::CImplicitBlend(CImplicitModuleBase * low, CImplicitModuleBase * high, ANLFloatType control) : CImplicitModuleBase(), m_low(low), m_high(high), m_control(control){}
-    CImplicitBlend::CImplicitBlend(CImplicitModuleBase * low, CImplicitModuleBase * high, CImplicitModuleBase * control) : CImplicitModuleBase(), m_low(low), m_high(high), m_control(control){}
+        private void setControlSource(CImplicitModuleBase b)
+        {
+            m_control.set(b);
+        }
 
-	CImplicitBlend::~CImplicitBlend(){}
+        private void setLowSource(double v)
+        {
+            m_low.set(v);
+        }
 
-	void CImplicitBlend::setLowSource(CImplicitModuleBase * b)
-	{
-		m_low.set(b);
-	}
+        private void setHighSource(double v)
+        {
+            m_high.set(v);
+        }
 
-	void CImplicitBlend::setHighSource(CImplicitModuleBase * b)
-	{
-	    m_high.set(b);
-	}
+        private void setControlSource(double v)
+        {
+            m_control.set(v);
+        }
 
-	void CImplicitBlend::setControlSource(CImplicitModuleBase * b)
-	{
-	    m_control.set(b);
-	}
+        public override double get(double x, double y)
+        {
+            double v1 = m_low.get(x, y);
+            double v2 = m_high.get(x, y);
+            double blend = m_control.get(x, y);
+            blend = (blend + 1.0) * 0.5;
 
-	void CImplicitBlend::setLowSource(ANLFloatType v)
-	{
-		m_low.set(v);
-	}
+            return Misc.Lerp(blend, v1, v2);
+        }
 
-	void CImplicitBlend::setHighSource(ANLFloatType v)
-	{
-	    m_high.set(v);
-	}
+        public override double get(double x, double y, double z)
+        {
+            double v1 = m_low.get(x, y, z);
+            double v2 = m_high.get(x, y, z);
+            double blend = m_control.get(x, y, z);
+            return Misc.Lerp(blend, v1, v2);
+        }
 
-	void CImplicitBlend::setControlSource(ANLFloatType v)
-	{
-	    m_control.set(v);
-	}
+        public override double get(double x, double y, double z, double w)
+        {
+            double v1 = m_low.get(x, y, z, w);
+            double v2 = m_high.get(x, y, z, w);
+            double blend = m_control.get(x, y, z, w);
+            return Misc.Lerp(blend, v1, v2);
+        }
 
-	ANLFloatType CImplicitBlend::get(ANLFloatType x, ANLFloatType y)
-	{
-        ANLFloatType v1=m_low.get(x,y);
-        ANLFloatType v2=m_high.get(x,y);
-        ANLFloatType blend=m_control.get(x,y);
-        blend=(blend+1.0) * 0.5;
-
-        return lerp(blend,v1,v2);
-	}
-
-	ANLFloatType CImplicitBlend::get(ANLFloatType x, ANLFloatType y, ANLFloatType z)
-	{
-        ANLFloatType v1=m_low.get(x,y,z);
-        ANLFloatType v2=m_high.get(x,y,z);
-        ANLFloatType blend=m_control.get(x,y,z);
-        return lerp(blend,v1,v2);
-	}
-
-	ANLFloatType CImplicitBlend::get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w)
-	{
-        ANLFloatType v1=m_low.get(x,y,z,w);
-        ANLFloatType v2=m_high.get(x,y,z,w);
-        ANLFloatType blend=m_control.get(x,y,z,w);
-        return lerp(blend,v1,v2);
-	}
-
-	ANLFloatType CImplicitBlend::get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w, ANLFloatType u, ANLFloatType v)
-    {
-        ANLFloatType v1=m_low.get(x,y,z,w,u,v);
-        ANLFloatType v2=m_high.get(x,y,z,w,u,v);
-        ANLFloatType blend=m_control.get(x,y,z,w,u,v);
-        return lerp(blend,v1,v2);
-	}
-};
+        public override double get(double x, double y, double z, double w, double u, double v)
+        {
+            double v1 = m_low.get(x, y, z, w, u, v);
+            double v2 = m_high.get(x, y, z, w, u, v);
+            double blend = m_control.get(x, y, z, w, u, v);
+            return Misc.Lerp(blend, v1, v2);
+        }
+    }
+}

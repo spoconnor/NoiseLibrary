@@ -2,27 +2,27 @@
 #define IMPLICIT_SAWTOOTH_H
 #include "implicitmodulebase.h"
 
-namespace anl
+namespace NoiseLibrary
 {
 class CImplicitSawtooth : public CImplicitModuleBase
 {
     public:
     CImplicitSawtooth();
-    CImplicitSawtooth(ANLFloatType source, ANLFloatType period);
-    CImplicitSawtooth(ANLFloatType source, CImplicitModuleBase * period);
-    CImplicitSawtooth(CImplicitModuleBase * source, ANLFloatType period);
+    CImplicitSawtooth(double source, double period);
+    CImplicitSawtooth(double source, CImplicitModuleBase * period);
+    CImplicitSawtooth(CImplicitModuleBase * source, double period);
     CImplicitSawtooth(CImplicitModuleBase * source, CImplicitModuleBase * period);
     ~CImplicitSawtooth();
 
     void setSource(CImplicitModuleBase * s);
-    void setSource(ANLFloatType s);
+    void setSource(double s);
     void setPeriod(CImplicitModuleBase * p);
-    void setPeriod(ANLFloatType p);
+    void setPeriod(double p);
 
-    ANLFloatType get(ANLFloatType x, ANLFloatType y);
-    ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z);
-    ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w);
-    ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w, ANLFloatType u, ANLFloatType v);
+    double get(double x, double y);
+    double get(double x, double y, double z);
+    double get(double x, double y, double z, double w);
+    double get(double x, double y, double z, double w, double u, double v);
 
     protected:
     CScalarParameter m_source;
@@ -33,12 +33,12 @@ class CImplicitSawtooth : public CImplicitModuleBase
 #endif
 #include "implicitsawtooth.h"
 #include <cmath>
-namespace anl
+namespace NoiseLibrary
 {
     CImplicitSawtooth::CImplicitSawtooth() : CImplicitModuleBase(), m_source(0.0), m_period(0.0){}
-    CImplicitSawtooth::CImplicitSawtooth(ANLFloatType source, ANLFloatType period) : CImplicitModuleBase(), m_source(source), m_period(period){}
-    CImplicitSawtooth::CImplicitSawtooth(ANLFloatType source, CImplicitModuleBase * period) : CImplicitModuleBase(), m_source(source), m_period(period){}
-    CImplicitSawtooth::CImplicitSawtooth(CImplicitModuleBase * source, ANLFloatType period) : CImplicitModuleBase(), m_source(source), m_period(period){}
+    CImplicitSawtooth::CImplicitSawtooth(double source, double period) : CImplicitModuleBase(), m_source(source), m_period(period){}
+    CImplicitSawtooth::CImplicitSawtooth(double source, CImplicitModuleBase * period) : CImplicitModuleBase(), m_source(source), m_period(period){}
+    CImplicitSawtooth::CImplicitSawtooth(CImplicitModuleBase * source, double period) : CImplicitModuleBase(), m_source(source), m_period(period){}
     CImplicitSawtooth::CImplicitSawtooth(CImplicitModuleBase * source, CImplicitModuleBase * period) : CImplicitModuleBase(), m_source(source), m_period(period){}
 CImplicitSawtooth::~CImplicitSawtooth()
 {
@@ -49,7 +49,7 @@ void CImplicitSawtooth::setSource(CImplicitModuleBase * s)
     m_source.set(s);
 }
 
-void CImplicitSawtooth::setSource(ANLFloatType s)
+void CImplicitSawtooth::setSource(double s)
 {
     m_source.set(s);
 }
@@ -59,39 +59,39 @@ void CImplicitSawtooth::setPeriod(CImplicitModuleBase * p)
     m_period.set(p);
 }
 
-void CImplicitSawtooth::setPeriod(ANLFloatType p)
+void CImplicitSawtooth::setPeriod(double p)
 {
     m_period.set(p);
 }
 
-ANLFloatType CImplicitSawtooth::get(ANLFloatType x, ANLFloatType y)
+double CImplicitSawtooth::get(double x, double y)
 {
-    ANLFloatType val=m_source.get(x,y);
-    ANLFloatType p=m_period.get(x,y);
+    double val=m_source.get(x,y);
+    double p=m_period.get(x,y);
 
     return 2.0*(val/p - floor(0.5 + val/p));
 }
 
-ANLFloatType CImplicitSawtooth::get(ANLFloatType x, ANLFloatType y, ANLFloatType z)
+double CImplicitSawtooth::get(double x, double y, double z)
 {
-    ANLFloatType val=m_source.get(x,y,z);
-    ANLFloatType p=m_period.get(x,y,z);
+    double val=m_source.get(x,y,z);
+    double p=m_period.get(x,y,z);
 
     return 2.0*(val/p - floor(0.5 + val/p));
 }
 
-ANLFloatType CImplicitSawtooth::get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w)
+double CImplicitSawtooth::get(double x, double y, double z, double w)
 {
-    ANLFloatType val=m_source.get(x,y,z,w);
-    ANLFloatType p=m_period.get(x,y,z,w);
+    double val=m_source.get(x,y,z,w);
+    double p=m_period.get(x,y,z,w);
 
     return 2.0*(val/p - floor(0.5 + val/p));
 }
 
-ANLFloatType CImplicitSawtooth::get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w, ANLFloatType u, ANLFloatType v)
+double CImplicitSawtooth::get(double x, double y, double z, double w, double u, double v)
 {
-    ANLFloatType val=m_source.get(x,y,z,w,u,v);
-    ANLFloatType p=m_period.get(x,y,z,w,u,v);
+    double val=m_source.get(x,y,z,w,u,v);
+    double p=m_period.get(x,y,z,w,u,v);
 
     return 2.0*(val/p - floor(0.5 + val/p));
 }

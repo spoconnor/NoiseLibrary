@@ -3,7 +3,7 @@
 #include "implicitmodulebase.h"
 #include "rgbamodulebase.h"
 
-namespace anl
+namespace NoiseLibrary
 {
     enum EExtractChannel
     {
@@ -24,10 +24,10 @@ namespace anl
 
         void setChannel(int channel);
 
-        ANLFloatType get(ANLFloatType x, ANLFloatType y);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w);
-        ANLFloatType get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w, ANLFloatType u, ANLFloatType v);
+        double get(double x, double y);
+        double get(double x, double y, double z);
+        double get(double x, double y, double z, double w);
+        double get(double x, double y, double z, double w, double u, double v);
 
         protected:
         CRGBAParameter m_source;
@@ -38,7 +38,7 @@ namespace anl
 #endif
 #include "implicitextractrgbachannel.h"
 
-namespace anl
+namespace NoiseLibrary
 {
     CImplicitExtractRGBAChannel::CImplicitExtractRGBAChannel() : CImplicitModuleBase(), m_source(SRGBA(0,0,0,0)), m_channel(RED){}
     CImplicitExtractRGBAChannel::CImplicitExtractRGBAChannel(int channel) : CImplicitModuleBase(), m_source(SRGBA(0,0,0,0)), m_channel(channel){}
@@ -57,26 +57,26 @@ namespace anl
         if(channel<RED) channel=RED;
         if(channel>ALPHA) channel=ALPHA;
     }
-    ANLFloatType CImplicitExtractRGBAChannel::get(ANLFloatType x, ANLFloatType y)
+    double CImplicitExtractRGBAChannel::get(double x, double y)
     {
         SRGBA s=m_source.get(x,y);
 
         return s[m_channel];
     }
 
-    ANLFloatType CImplicitExtractRGBAChannel::get(ANLFloatType x, ANLFloatType y, ANLFloatType z)
+    double CImplicitExtractRGBAChannel::get(double x, double y, double z)
     {
         SRGBA s=m_source.get(x,y,z);
 
         return s[m_channel];
     }
-    ANLFloatType CImplicitExtractRGBAChannel::get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w)
+    double CImplicitExtractRGBAChannel::get(double x, double y, double z, double w)
     {
         SRGBA s=m_source.get(x,y,z,w);
 
         return s[m_channel];
     }
-    ANLFloatType CImplicitExtractRGBAChannel::get(ANLFloatType x, ANLFloatType y, ANLFloatType z, ANLFloatType w, ANLFloatType u, ANLFloatType v)
+    double CImplicitExtractRGBAChannel::get(double x, double y, double z, double w, double u, double v)
     {
         SRGBA s=m_source.get(x,y,z,w,u,v);
 
