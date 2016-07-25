@@ -73,7 +73,6 @@ namespace NoiseTestApp
 
         var ground_cave_multiply = new CImplicitCombiner(type: ECombinerTypes.MULT, source0:cave_select, source1:ground_select);
 
-
         output = ground_cave_multiply;
     }
     public static double Calc(double x, double y)
