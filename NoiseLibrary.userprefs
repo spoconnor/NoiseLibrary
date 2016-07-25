@@ -1,6 +1,10 @@
 ﻿<Properties StartupItem="NoiseTestApp/NoiseTestApp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="NoiseTestApp/Form1.cs">
+    <Files>
+      <File FileName="NoiseTestApp/Form1.cs" Line="119" Column="17" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

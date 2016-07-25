@@ -129,6 +129,8 @@ namespace NoiseTestApp
         private Bitmap DrawImage(int width, int height)
         {
             var bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb);
+			if (calcFunc == null)
+				return bitmap;
             var graphics = Graphics.FromImage(bitmap);
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
