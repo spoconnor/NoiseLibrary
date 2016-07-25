@@ -63,6 +63,7 @@
     <Compile Include="RotateDomain.cs" />
     <Compile Include="ScalarParameter.cs" />
     <Compile Include="ScaleDomain.cs" />
+    <Compile Include="TranslateRadial.cs" />
     <Compile Include="ScaleOffset.cs" />
     <Compile Include="SeamlessMapping.cs" />
     <Compile Include="Select.cs" />

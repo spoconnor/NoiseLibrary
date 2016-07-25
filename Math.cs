@@ -44,16 +44,16 @@ namespace NoiseLibrary
         private CScalarParameter m_source;
         private CScalarParameter m_parameter;
 
-        CImplicitMath() : base()
+        public CImplicitMath() : base()
         { m_op = EMathOperation.ABS; m_source = new CScalarParameter(0.0); m_parameter = new CScalarParameter(0.0); }
 
-        CImplicitMath(EMathOperation op, double source, double p) : base()
+        public CImplicitMath(EMathOperation op, double source, double p) : base()
         { m_op = op; m_source = new CScalarParameter(source); m_parameter = new CScalarParameter(p); }
-        CImplicitMath(EMathOperation op, CImplicitModuleBase source, double p) : base()
+        public CImplicitMath(EMathOperation op, CImplicitModuleBase source, double p) : base()
         { m_op = op; m_source = new CScalarParameter(source); m_parameter = new CScalarParameter(p); }
-        CImplicitMath(EMathOperation op, double source, CImplicitModuleBase p) : base()
+        public CImplicitMath(EMathOperation op, double source, CImplicitModuleBase p) : base()
         { m_op = op; m_source = new CScalarParameter(source); m_parameter = new CScalarParameter(p); }
-        CImplicitMath(EMathOperation op, CImplicitModuleBase source, CImplicitModuleBase p) : base()
+        public CImplicitMath(EMathOperation op, CImplicitModuleBase source, CImplicitModuleBase p) : base()
         { m_op = op; m_source = new CScalarParameter(source); m_parameter = new CScalarParameter(p); }
 
         public void setSource(double v)

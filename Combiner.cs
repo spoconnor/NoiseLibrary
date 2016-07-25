@@ -20,6 +20,14 @@ namespace NoiseLibrary
             m_type = type;
             clearAllSources();
         }
+        public CImplicitCombiner(ECombinerTypes type, CImplicitModuleBase source0, CImplicitModuleBase source1=null, CImplicitModuleBase source2=null, CImplicitModuleBase source3=null)
+        {
+            m_type = type;
+            m_sources[0] = source0;
+            m_sources[1] = source1;
+            m_sources[2] = source2;
+            m_sources[3] = source3;
+        }
 
         private void setType(ECombinerTypes type)
         {
