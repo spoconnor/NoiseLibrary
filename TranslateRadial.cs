@@ -20,7 +20,8 @@ namespace NoiseLibrary
             var a = x - 0.5;
             if (o==0 && a==0) return m_source.get(0, Math.Sqrt(0.5 * 0.5 + 0.5 * 0.5));
             var r = Math.Sqrt(0.5 * 0.5 + 0.5 * 0.5)-Math.Sqrt(o*o+a*a);
-            var d = Math.Atan(o / a);
+            if (r < 0) r = 0;
+            var d = Math.Atan2(o, a);
             return m_source.get(d/(2*Math.PI), r/(Math.Sqrt(0.5*0.5+0.5*0.5)));
         }
 

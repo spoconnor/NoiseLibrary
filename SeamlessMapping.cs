@@ -4,7 +4,7 @@ namespace NoiseLibrary
 {
    
 
-    class CImplicitSeamlessMapping : CImplicitModuleBase
+    public class CImplicitSeamlessMapping : CImplicitModuleBase
     {
         public enum EMappingModes
         {
@@ -22,11 +22,11 @@ namespace NoiseLibrary
         private double m_periodx, m_periody, m_periodz;
         private EMappingModes m_seamlessmode;
 
-        CImplicitSeamlessMapping() : base()
+        public CImplicitSeamlessMapping() : base()
         { m_source = null; m_seamlessmode = EMappingModes.SEAMLESS_NONE; m_periodx = 1; m_periody = 1; m_periodz = 1; }
 
-        CImplicitSeamlessMapping(CImplicitModuleBase src, EMappingModes seamlessmode, double periodx = 1, double periody = 1, double periodz = 1) : base()
-        { m_source = src; m_seamlessmode = seamlessmode; m_periodx = periodx; m_periody = periody; m_periodz = periodz; }
+        public CImplicitSeamlessMapping(CImplicitModuleBase source, EMappingModes seamlessmode, double periodx = 1, double periody = 1, double periodz = 1) : base()
+        { m_source = source; m_seamlessmode = seamlessmode; m_periodx = periodx; m_periody = periody; m_periodz = periodz; }
 
         private void setSource(CImplicitModuleBase src)
         {

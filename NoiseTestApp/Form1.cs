@@ -151,6 +151,13 @@ namespace NoiseTestApp
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            //code = this.textBox1.Text;
+            //if (Compile())
+            //    Draw();
+        }
+
+        private void goButton_Click(object sender, EventArgs e)
+        {
             code = this.textBox1.Text;
             if (Compile())
                 Draw();

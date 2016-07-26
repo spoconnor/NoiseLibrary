@@ -31,6 +31,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.errorsTextBox = new System.Windows.Forms.TextBox();
+            this.goButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,22 +52,35 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(776, 328);
+            this.textBox1.Size = new System.Drawing.Size(800, 184);
             this.textBox1.TabIndex = 1;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // errorsTextBox
             // 
-            this.errorsTextBox.Location = new System.Drawing.Point(0, 740);
+            this.errorsTextBox.Location = new System.Drawing.Point(0, 596);
+            this.errorsTextBox.Multiline = true;
             this.errorsTextBox.Name = "errorsTextBox";
-            this.errorsTextBox.Size = new System.Drawing.Size(776, 20);
+            this.errorsTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.errorsTextBox.Size = new System.Drawing.Size(690, 37);
             this.errorsTextBox.TabIndex = 2;
+            // 
+            // goButton
+            // 
+            this.goButton.Location = new System.Drawing.Point(697, 596);
+            this.goButton.Name = "goButton";
+            this.goButton.Size = new System.Drawing.Size(75, 37);
+            this.goButton.TabIndex = 3;
+            this.goButton.Text = "Go";
+            this.goButton.UseVisualStyleBackColor = true;
+            this.goButton.Click += new System.EventHandler(this.goButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(801, 762);
+            this.ClientSize = new System.Drawing.Size(801, 640);
+            this.Controls.Add(this.goButton);
             this.Controls.Add(this.errorsTextBox);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pictureBox1);
@@ -83,6 +97,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox errorsTextBox;
+        private System.Windows.Forms.Button goButton;
     }
 }
 
