@@ -73,6 +73,16 @@ namespace NoiseTestApp
 
         var ground_cave_multiply = new CImplicitCombiner(type: ECombinerTypes.MULT, source0:cave_select, source1:ground_select);
 
+
+            //var coastline_shape_fractal = new CImplicitFractal(type: EFractalTypes.RIDGEDMULTI, basistype: CImplicitBasisFunction.EBasisTypes.GRADIENT, interptype: CImplicitBasisFunction.EInterpTypes.QUINTIC, octaves: 8, freq: 1);
+            //var coastline_autocorrect = new CImplicitAutoCorrect(source: coastline_shape_fractal, low: -1, high: 1);
+            //var coastline_seamless = new CImplicitSeamlessMapping(source: coastline_autocorrect, seamlessmode: CImplicitSeamlessMapping.EMappingModes.SEAMLESS_X);
+            //var coastline_scale = new CImplicitScaleOffset(source: coastline_seamless, scale: 0.45, offset: 0.15);
+            //var coastline_y_scale = new CImplicitScaleDomain(source: coastline_scale, y: 0.25);
+            //var coastline_terrain = new CImplicitTranslateDomain(source: ground_gradient, tx: 0.0, ty: coastline_y_scale, tz: 0.0);
+            //var coastline_radial_mapping = new CImplicitTranslateRadial(source: coastline_terrain);
+
+
         output = ground_cave_multiply;
     }
     public static double Calc(double x, double y)
