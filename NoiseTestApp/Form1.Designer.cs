@@ -28,10 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.errorsTextBox = new System.Windows.Forms.TextBox();
             this.goButton = new System.Windows.Forms.Button();
+            this.radioButton2d = new System.Windows.Forms.RadioButton();
+            this.radioButton3d = new System.Windows.Forms.RadioButton();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,7 +67,7 @@
             this.errorsTextBox.Multiline = true;
             this.errorsTextBox.Name = "errorsTextBox";
             this.errorsTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.errorsTextBox.Size = new System.Drawing.Size(690, 37);
+            this.errorsTextBox.Size = new System.Drawing.Size(646, 37);
             this.errorsTextBox.TabIndex = 2;
             // 
             // goButton
@@ -75,11 +80,41 @@
             this.goButton.UseVisualStyleBackColor = true;
             this.goButton.Click += new System.EventHandler(this.goButton_Click);
             // 
+            // radioButton2d
+            // 
+            this.radioButton2d.AutoSize = true;
+            this.radioButton2d.Checked = true;
+            this.radioButton2d.Location = new System.Drawing.Point(652, 596);
+            this.radioButton2d.Name = "radioButton2d";
+            this.radioButton2d.Size = new System.Drawing.Size(39, 17);
+            this.radioButton2d.TabIndex = 4;
+            this.radioButton2d.TabStop = true;
+            this.radioButton2d.Text = "2D";
+            this.radioButton2d.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3d
+            // 
+            this.radioButton3d.AutoSize = true;
+            this.radioButton3d.Location = new System.Drawing.Point(652, 615);
+            this.radioButton3d.Name = "radioButton3d";
+            this.radioButton3d.Size = new System.Drawing.Size(39, 17);
+            this.radioButton3d.TabIndex = 5;
+            this.radioButton3d.Text = "3D";
+            this.radioButton3d.UseVisualStyleBackColor = true;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "box_blue");
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(801, 640);
+            this.Controls.Add(this.radioButton3d);
+            this.Controls.Add(this.radioButton2d);
             this.Controls.Add(this.goButton);
             this.Controls.Add(this.errorsTextBox);
             this.Controls.Add(this.textBox1);
@@ -98,6 +133,9 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox errorsTextBox;
         private System.Windows.Forms.Button goButton;
+        private System.Windows.Forms.RadioButton radioButton2d;
+        private System.Windows.Forms.RadioButton radioButton3d;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
 

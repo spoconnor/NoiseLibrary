@@ -24,7 +24,8 @@ namespace NoiseTestApp
             this.textBox1.Text = code;
             Compile ();
         }
-        private MethodInfo calcFunc;
+        private MethodInfo calc2dFunc;
+        private MethodInfo calc3dFunc;
         private string code = @"
 using NoiseLibrary;
 namespace NoiseTestApp
@@ -85,14 +86,14 @@ namespace NoiseTestApp
 
         output = ground_cave_multiply;
     }
-    public static double Calc(double x, double y)
+    public static double Calc2d(double x, double y)
     {
       return output.get(x,y);
     }
-    //public static double Calc(double x, double y, double z)
-    //{
-    //  return output.get(x,y,z);
-    //}
+    public static double Calc3d(double x, double y, double z)
+    {
+      return output.get(x,y,z);
+    }
   }
 }
 ";
@@ -112,7 +113,8 @@ namespace NoiseTestApp
 
         private bool Compile ()
         {
-            calcFunc = null;
+            calc2dFunc = null;
+            calc3dFunc = null;
             using (var csc = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v4.0" } }))
             {
                 var parameters = new CompilerParameters(new[] { "mscorlib.dll", "System.Core.dll" }, "foo.exe", false);
@@ -130,7 +132,8 @@ namespace NoiseTestApp
 
                 Assembly assembly = results.CompiledAssembly;
                 Type program = assembly.GetType("NoiseTestApp.Program");
-                calcFunc = program.GetMethod("Calc");
+                calc2dFunc = program.GetMethod("Calc2d");
+                calc3dFunc = program.GetMethod("Calc3d");
                 return true;
             }
         }
@@ -138,21 +141,42 @@ namespace NoiseTestApp
         private Bitmap DrawImage(int width, int height)
         {
             var bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb);
-			if (calcFunc == null)
-				return bitmap;
             var graphics = Graphics.FromImage(bitmap);
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
-
-            for (int x = 1; x < width; x++)
+            if (this.radioButton2d.Checked)
             {
-                for (int y = 1; y < height; y++)
+			    if (calc2dFunc == null) return bitmap;
+                for (int x = 1; x < width; x++)
                 {
-                    var p = (int)(255 * (double)calcFunc.Invoke (null, new object [] { (double)x / width, (double)y / height}));
-                    if (p < 0) p = 0;
-                    if (p > 255) p = 255;
-                    var color = Color.FromArgb(255, 0, p, 0);
-                    graphics.FillRectangle(new SolidBrush(color), x, y, 1, 1);
+                    for (int y = 1; y < height; y++)
+                    {
+                        var p = (int)(255 * (double)calc2dFunc.Invoke(null, new object[] { (double)x / width, (double)y / height }));
+                        if (p < 0) p = 0;
+                        if (p > 255) p = 255;
+                        var color = Color.FromArgb(255, 0, p, 0);
+                        graphics.FillRectangle(new SolidBrush(color), x, y, 1, 1);
+                    }
+                }
+            }
+            else
+            {
+			    if (calc3dFunc == null) return bitmap;
+                var boxImage = imageList1.Images["box_blue"];
+                double blocks = 50;
+                for (double x = 0; x < blocks; x++)
+                {
+                    for (double z = 0; z < blocks; z++)
+                    {
+                        for (double y = 32; y >0; y--)
+                        {
+                            var p = (double)calc3dFunc.Invoke(null, new object[] { x/blocks, y/32, z/blocks });
+                            if (p >= 0.5)
+                            {
+                                graphics.DrawImage(boxImage, new Point((int)((width / 2) + ((x - z) * 8)), (int)((height / 2) + ((x + z) * 5) - (32-y)*6)));
+                            }
+                        }
+                    }
                 }
             }
 
