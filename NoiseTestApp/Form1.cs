@@ -60,25 +60,29 @@ namespace NoiseTestApp
         var highland_lowland_select = new CImplicitSelect(low:lowland_terrain, high:highland_mountain_select, control:terrain_type_cache, threshold:0.25, falloff:0.15);
         var highland_lowland_select_cache = new CImplicitCache(highland_lowland_select);
 
-        var cave_shape = new CImplicitFractal(type: EFractalTypes.RIDGEDMULTI, basistype: CImplicitBasisFunction.EBasisTypes.GRADIENT, interptype: CImplicitBasisFunction.EInterpTypes.QUINTIC, octaves:1, freq: 4);
-        var cave_attenuate_bias = new CImplicitMath(op:EMathOperation.BIAS, source:highland_lowland_select_cache, p:0.45);
-        var cave_shape_attenuate = new CImplicitCombiner(type:ECombinerTypes.MULT, source0:cave_shape, source1:cave_attenuate_bias);
-        var cave_perturb_fractal = new CImplicitFractal(type: EFractalTypes.FBM, basistype: CImplicitBasisFunction.EBasisTypes.GRADIENT, interptype: CImplicitBasisFunction.EInterpTypes.QUINTIC, octaves:6, freq: 3);
-        var cave_perturb_scale = new CImplicitScaleOffset(source:cave_perturb_fractal, scale:0.5, offset:0);
-        var cave_perturb = new CImplicitTranslateDomain(source:cave_shape_attenuate, tx:cave_perturb_scale, ty:0.0, tz:0.0);
-        var cave_select = new CImplicitSelect(low:1, high:0, control:cave_perturb, threshold:0.48, falloff:0);
 
-        var coastline_shape_fractal = new CImplicitFractal(type: EFractalTypes.RIDGEDMULTI, basistype: CImplicitBasisFunction.EBasisTypes.GRADIENT, interptype: CImplicitBasisFunction.EInterpTypes.QUINTIC, octaves: 8, freq: 1);
-        var coastline_autocorrect = new CImplicitAutoCorrect(source: coastline_shape_fractal, low: -1, high: 1);
-        var coastline_seamless = new CImplicitSeamlessMapping(source: coastline_autocorrect, seamlessmode: CImplicitSeamlessMapping.EMappingModes.SEAMLESS_X);
-        var coastline_scale = new CImplicitScaleOffset(source: coastline_seamless, scale: 0.45, offset: 0.15);
-        var coastline_y_scale = new CImplicitScaleDomain(source: coastline_scale, y: 0.25);
-        var coastline_terrain = new CImplicitTranslateDomain(source: ground_gradient, tx: 0.0, ty: coastline_y_scale, tz: 0.0);
-        var coastline_radial_mapping = new CImplicitTranslateRadial(source: coastline_terrain);
+        //var coastline_shape_fractal = new CImplicitFractal(type: EFractalTypes.RIDGEDMULTI, basistype: CImplicitBasisFunction.EBasisTypes.GRADIENT, interptype: CImplicitBasisFunction.EInterpTypes.QUINTIC, octaves: 8, freq: 1);
+        //var coastline_autocorrect = new CImplicitAutoCorrect(source: coastline_shape_fractal, low: -1, high: 1);
+        //var coastline_seamless = new CImplicitSeamlessMapping(source: coastline_autocorrect, seamlessmode: CImplicitSeamlessMapping.EMappingModes.SEAMLESS_X);
+        //var coastline_scale = new CImplicitScaleOffset(source: coastline_seamless, scale: 0.45, offset: 0.15);
+        //var coastline_y_scale = new CImplicitScaleDomain(source: coastline_scale, y: 0.25);
+        //var coastline_terrain = new CImplicitTranslateDomain(source: ground_gradient, tx: 0.0, ty: coastline_y_scale, tz: 0.0);
+        //var coastline_radial_mapping = new CImplicitTranslateRadial(source: coastline_terrain);
    
-        var ground_select = new CImplicitSelect(low:0, high:1, threshold:0.5, control:highland_lowland_select_cache);
+            var ground_select = new CImplicitSelect(low: 0, high: 1, threshold: 0.5, control: highland_lowland_select_cache);
 
-        output = ground_cave_multiply;
+            var cave_attenuate_bias = new CImplicitMath(op: EMathOperation.BIAS, source: highland_lowland_select_cache, p: 0.45);
+            var cave_shape1 = new CImplicitFractal(type: EFractalTypes.RIDGEDMULTI, basistype: CImplicitBasisFunction.EBasisTypes.GRADIENT, interptype: CImplicitBasisFunction.EInterpTypes.QUINTIC, octaves: 1, freq: 4);
+            var cave_shape2 = new CImplicitFractal(type: EFractalTypes.RIDGEDMULTI, basistype: CImplicitBasisFunction.EBasisTypes.GRADIENT, interptype: CImplicitBasisFunction.EInterpTypes.QUINTIC, octaves: 1, freq: 4);
+            var cave_shape_attenuate = new CImplicitCombiner(type: ECombinerTypes.MULT, source0: cave_shape1, source1: cave_attenuate_bias, source2: cave_shape2);
+            var cave_perturb_fractal = new CImplicitFractal(type: EFractalTypes.FBM, basistype: CImplicitBasisFunction.EBasisTypes.GRADIENT, interptype: CImplicitBasisFunction.EInterpTypes.QUINTIC, octaves: 6, freq: 3);
+            var cave_perturb_scale = new CImplicitScaleOffset(source: cave_perturb_fractal, scale: 0.5, offset: 0);
+            var cave_perturb = new CImplicitTranslateDomain(source: cave_shape_attenuate, tx: cave_perturb_scale, ty: 0, tz: 0);
+            var cave_select = new CImplicitSelect(low: 1, high: 0, control: cave_perturb, threshold: 0.48, falloff: 0);
+
+            var ground_cave_multiply = new CImplicitCombiner(type: ECombinerTypes.MULT, source0: cave_select, source1: ground_select);
+
+            output = ground_cave_multiply;
     }
     public static double Calc2d(double x, double y)
     {
@@ -91,6 +95,7 @@ namespace NoiseTestApp
   }
 }
 ";
+
 
         private void pictureBox1_Resize(object sender, EventArgs e)
         {
@@ -167,7 +172,7 @@ namespace NoiseTestApp
                             var p = (double)calc3dFunc.Invoke(null, new object[] { x/blocks, y/32, z/blocks });
                             if (p >= 0.5)
                             {
-                                graphics.DrawImage(boxImage, new Point((int)((width / 2) + ((x - z) * 8)), (int)((height / 2) + ((x + z) * 5) - (32-y)*6)));
+                                graphics.DrawImage(boxImage, new Point((int)((width / 2) + ((x - z) * 8)), (int)((height / 2) + ((x + z) * 5) - (32-y)*6 - 150)));
                             }
                         }
                     }
