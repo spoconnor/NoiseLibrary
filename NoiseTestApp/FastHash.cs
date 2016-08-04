@@ -7,14 +7,49 @@ using System.Threading.Tasks;
 namespace NoiseTestApp
 {
 
-    public class test
+    public class Tests
     {
-        public void test1()
+        public void Run()
         {
-            var hash2 = new FastHash();
-            byte[] data = new byte[10];
-            var result = hash2.ComputeHash(data);
-        }
+			var pre = System.DateTime.Now.Ticks;
+			for (int x = 1; x < 255; x=x+50)
+				for (int y = 1; y < 255; y=y+50)
+					for (int z = 1; z < 255; z=z+50)
+						for (uint s = 1; s < 255; s=s+50) {
+							CalcHash1 (x, y, z, s);
+						}
+			var post1 = System.DateTime.Now.Ticks;
+			for (int x = 1; x < 255; x=x+50)
+				for (int y = 1; y < 255; y=y+50)
+					for (int z = 1; z < 255; z=z+50)
+						for (uint s = 1; s < 255; s=s+50) {
+							CalcHash2 (x, y, z, s);
+						}
+			var post2 = System.DateTime.Now.Ticks;
+			Console.WriteLine ($"{post1-pre}");
+			Console.WriteLine ($"{post2-post1}");
+		}
+		public void CalcHash1 (int x, int y, int z, uint s)
+		{
+			uint hash = NoiseLibrary.Hashing.hash_coords_3 (x, y, z, s);
+		}
+		public void CalcHash2 (int x, int y, int z, uint s)
+		{
+			byte[] data = new byte[16]{ 0,0,0,(byte)x, 0,0,0,(byte)y, 0,0,0,(byte)z, 0,0,0,(byte)s };
+			hash2.ComputeHash(data);
+		}
+		private FastHash hash2 = new FastHash ();
+
+		public void Run2()
+		{
+			int x = 1;
+			int y = 2;
+			int z = 3;
+			uint seed = 4;
+			uint hash = NoiseLibrary.Hashing.hash_coords_3 (x, y, z, seed);
+
+		}
+
     }
     public static class IntHelpers
     {
@@ -38,7 +73,7 @@ namespace NoiseTestApp
         }
     }
 
-    class FastHash
+    public class FastHash
     {
         // 128 bit output, 64 bit platform version
 

@@ -20,6 +20,9 @@ namespace NoiseTestApp
             InitializeComponent();
             this.textBox1.Text = code;
             Compile ();
+
+			var tests = new Tests ();
+			tests.Run ();
         }
         private MethodInfo calc2dFunc;
         private MethodInfo calc3dFunc;
