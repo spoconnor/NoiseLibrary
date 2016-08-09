@@ -36,17 +36,10 @@ namespace NoiseTestApp
 
         var lowland_shape_fractal = new CImplicitFractal(type: EFractalTypes.BILLOW, basistype: CImplicitBasisFunction.EBasisTypes.GRADIENT, interptype: CImplicitBasisFunction.EInterpTypes.QUINTIC, octaves: 2, freq: 0.25);
         var lowland_autocorrect = new CImplicitAutoCorrect(source: lowland_shape_fractal, low: 0, high: 1);
-        var lowland_scale = new CImplicitScaleOffset(source: lowland_autocorrect, scale: 0.125, offset: -0.45);
+        var lowland_scale = new CImplicitScaleOffset(source: lowland_autocorrect, scale: 0.125, offset: 0.25);
         var lowland_cache = new CImplicitCache(lowland_scale);
         var lowland_y_scale = new CImplicitScaleDomain(source: lowland_cache, y: 0);
         var lowland_terrain = new CImplicitTranslateDomain(source: ground_gradient, tx: 0.0, ty: lowland_y_scale, tz: 0.0);
-
-        //var coastline_shape_fractal = new CImplicitFractal(type: EFractalTypes.RIDGEDMULTI, basistype: CImplicitBasisFunction.EBasisTypes.GRADIENT, interptype: CImplicitBasisFunction.EInterpTypes.QUINTIC, octaves: 8, freq: 1);
-        //var coastline_autocorrect = new CImplicitAutoCorrect(source: coastline_shape_fractal, low: -1, high: 1);
-        //var coastline_seamless = new CImplicitSeamlessMapping(source: coastline_autocorrect, seamlessmode: CImplicitSeamlessMapping.EMappingModes.SEAMLESS_X);
-        //var coastline_cache = new CImplicitCache(coastline_seamless);
-        //var coastline_y_scale = new CImplicitScaleDomain(source: coastline_cache, y: 0);
-        //var coastline_radial_mapping = new CImplicitTranslateRadial(source: coastline_y_scale);
 
         var highland_shape_fractal = new CImplicitFractal(type: EFractalTypes.FBM, basistype: CImplicitBasisFunction.EBasisTypes.GRADIENT, interptype: CImplicitBasisFunction.EInterpTypes.QUINTIC, octaves: 4, freq: 2);
         var highland_autocorrect = new CImplicitAutoCorrect(source: highland_shape_fractal, low: -1, high: 1);
@@ -69,7 +62,18 @@ namespace NoiseTestApp
         var highland_lowland_select = new CImplicitSelect(low:lowland_terrain, high:highland_mountain_select, control:terrain_type_cache, threshold:0.25, falloff:0.15);
         var highland_lowland_select_cache = new CImplicitCache(highland_lowland_select);
  
-        //    var ground_select = new CImplicitSelect(low: 0, high: 1, threshold: 0.5, control: highland_lowland_select_cache);
+        var coastline_shape_fractal = new CImplicitFractal(type: EFractalTypes.RIDGEDMULTI, basistype: CImplicitBasisFunction.EBasisTypes.GRADIENT, interptype: CImplicitBasisFunction.EInterpTypes.QUINTIC, octaves: 8, freq: 1);
+        var coastline_autocorrect = new CImplicitAutoCorrect(source: coastline_shape_fractal, low: 0, high: 1);
+        var coastline_seamless = new CImplicitSeamlessMapping(source: coastline_autocorrect, seamlessmode: CImplicitSeamlessMapping.EMappingModes.SEAMLESS_X);
+        var coastline_cache = new CImplicitCache(coastline_seamless );
+        var coastline_y_scale = new CImplicitScaleDomain(source: coastline_cache, y: 0);
+        var coastline_scale = new CImplicitScaleOffset(source:coastline_y_scale , scale: 0.5, offset: -1);
+        var coastline_terrain = new CImplicitTranslateDomain(source: ground_gradient, tx: 0.0, ty: coastline_scale, tz: 0.0);
+        var coastline_radial_mapping = new CImplicitTranslateRadial(source: coastline_terrain);
+
+        var coastline_highland_lowland_select = new CImplicitTranslateDomain(source: highland_lowland_select_cache, tx: 0.0, ty: coastline_radial_mapping, tz: 0.0);
+
+        var ground_select = new CImplicitSelect(low: 0, high: 1, threshold: 0.5, control: coastline_highland_lowland_select);
 
         //    var cave_attenuate_bias = new CImplicitMath(op: EMathOperation.BIAS, source: highland_lowland_select_cache, p: 0.45);
         //    var cave_shape1 = new CImplicitFractal(type: EFractalTypes.RIDGEDMULTI, basistype: CImplicitBasisFunction.EBasisTypes.GRADIENT, interptype: CImplicitBasisFunction.EInterpTypes.QUINTIC, octaves: 1, freq: 4);
@@ -82,7 +86,7 @@ namespace NoiseTestApp
 
         //    var ground_cave_multiply = new CImplicitCombiner(type: ECombinerTypes.MULT, source0: cave_select, source1: ground_select);
 
-        output = coastline_radial_mapping ;
+        output = ground_select ;
     }
     public static double Calc2d(double x, double y)
     {

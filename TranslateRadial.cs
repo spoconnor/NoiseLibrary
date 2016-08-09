@@ -8,26 +8,32 @@ namespace NoiseLibrary
     public class CImplicitTranslateRadial : CImplicitModuleBase
     {
         private CImplicitModuleBase m_source;
+        private double xCentre;
+        private double zCentre;
+        private double xzLength; // calculated
 
-        public CImplicitTranslateRadial(CImplicitModuleBase source) : base()
+        public CImplicitTranslateRadial(CImplicitModuleBase source, double xCentre = 0.5, double zCentre = 0.5) : base()
         {
-            m_source = source;
-        }
-
-        public override double get(double x, double y)
-        {
-            var o = y - 0.5;
-            var a = x - 0.5;
-            if (o==0 && a==0) return m_source.get(0, Math.Sqrt(0.5 * 0.5 + 0.5 * 0.5));
-            var r = Math.Sqrt(0.5 * 0.5 + 0.5 * 0.5)-Math.Sqrt(o*o+a*a);
-            if (r < 0) r = 0;
-            var d = Math.Atan2(o, a);
-            return m_source.get(d/(2*Math.PI), r/(Math.Sqrt(0.5*0.5+0.5*0.5)));
+            this.m_source = source;
+            this.xCentre = xCentre;
+            this.zCentre = zCentre;
+            this.xzLength = Math.Sqrt(xCentre * xCentre + zCentre * zCentre);
         }
 
         public override double get(double x, double y, double z)
         {
-            throw new NotImplementedException();
+            var o = z - zCentre;
+            var a = x - xCentre;
+            if (o==0 && a==0) return m_source.get(0, xzLength);
+            var r = xzLength-Math.Sqrt(o*o+a*a);
+            if (r < 0) r = 0;
+            var d = Math.Atan2(o, a);
+            return m_source.get(d/(2*Math.PI), r/xzLength);
+        }
+
+        public override double get(double x, double y)
+        {
+            return get(x, y, 0.5);
         }
 
         public override double get(double x, double y, double z, double w)
