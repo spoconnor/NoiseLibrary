@@ -24,7 +24,7 @@ namespace NoiseLibrary
         {
             var o = z - zCentre;
             var a = x - xCentre;
-            if (o==0 && a==0) return m_source.get(0, xzLength);
+            if (o==0 && a==0) return m_source.get(0, 1);
             var r = xzLength-Math.Sqrt(o*o+a*a);
             if (r < 0) r = 0;
             var d = Math.Atan2(o, a);
