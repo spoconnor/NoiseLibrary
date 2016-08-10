@@ -1,12 +1,19 @@
 ﻿<Properties StartupItem="NoiseTestApp/NoiseTestApp.csproj">
-  <MonoDevelop.Ide.Workbench ActiveDocument="NoiseTestApp/Form1.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ScaleOffset.cs">
     <Files>
-      <File FileName="NoiseTestApp/Form1.cs" Line="50" Column="1" />
+      <File FileName="NoiseTestApp/Form1.cs" Line="53" Column="18" />
       <File FileName="Fractal.cs" Line="1" Column="1" />
       <File FileName="Hashing.cs" Line="1" Column="1" />
+      <File FileName="TranslateRadial.cs" Line="1" Column="1" />
+      <File FileName="Math.cs" Line="1" Column="1" />
+      <File FileName="TranslateDomain.cs" Line="1" Column="1" />
+      <File FileName="Clamp.cs" Line="1" Column="1" />
+      <File FileName="Misc.cs" Line="6" Column="31" />
+      <File FileName="Select.cs" Line="154" Column="33" />
+      <File FileName="ScaleOffset.cs" Line="13" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/mnt/archive/Programming/Cloud/NoiseLibrary/NoiseTestApp/FastHash.cs" line="49" column="1" />
