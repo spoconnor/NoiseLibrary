@@ -37,6 +37,10 @@
             this.radioButton2d = new System.Windows.Forms.RadioButton();
             this.radioButton3d = new System.Windows.Forms.RadioButton();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.nButton = new System.Windows.Forms.Button();
+            this.eButton = new System.Windows.Forms.Button();
+            this.wButton = new System.Windows.Forms.Button();
+            this.sButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -108,11 +112,55 @@
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "box_blue");
             // 
+            // nButton
+            // 
+            this.nButton.Location = new System.Drawing.Point(765, 12);
+            this.nButton.Name = "nButton";
+            this.nButton.Size = new System.Drawing.Size(24, 21);
+            this.nButton.TabIndex = 6;
+            this.nButton.Text = "N";
+            this.nButton.UseVisualStyleBackColor = true;
+            this.nButton.Click += new System.EventHandler(this.nButton_Click);
+            // 
+            // eButton
+            // 
+            this.eButton.Location = new System.Drawing.Point(765, 39);
+            this.eButton.Name = "eButton";
+            this.eButton.Size = new System.Drawing.Size(24, 21);
+            this.eButton.TabIndex = 7;
+            this.eButton.Text = "E";
+            this.eButton.UseVisualStyleBackColor = true;
+            this.eButton.Click += new System.EventHandler(this.eButton_Click);
+            // 
+            // wButton
+            // 
+            this.wButton.Location = new System.Drawing.Point(735, 12);
+            this.wButton.Name = "wButton";
+            this.wButton.Size = new System.Drawing.Size(24, 21);
+            this.wButton.TabIndex = 8;
+            this.wButton.Text = "W";
+            this.wButton.UseVisualStyleBackColor = true;
+            this.wButton.Click += new System.EventHandler(this.wButton_Click);
+            // 
+            // sButton
+            // 
+            this.sButton.Location = new System.Drawing.Point(735, 39);
+            this.sButton.Name = "sButton";
+            this.sButton.Size = new System.Drawing.Size(24, 21);
+            this.sButton.TabIndex = 9;
+            this.sButton.Text = "S";
+            this.sButton.UseVisualStyleBackColor = true;
+            this.sButton.Click += new System.EventHandler(this.sButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(801, 640);
+            this.Controls.Add(this.sButton);
+            this.Controls.Add(this.wButton);
+            this.Controls.Add(this.eButton);
+            this.Controls.Add(this.nButton);
             this.Controls.Add(this.radioButton3d);
             this.Controls.Add(this.radioButton2d);
             this.Controls.Add(this.goButton);
@@ -136,6 +184,10 @@
         private System.Windows.Forms.RadioButton radioButton2d;
         private System.Windows.Forms.RadioButton radioButton3d;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Button nButton;
+        private System.Windows.Forms.Button eButton;
+        private System.Windows.Forms.Button wButton;
+        private System.Windows.Forms.Button sButton;
     }
 }
 
