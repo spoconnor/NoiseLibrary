@@ -22,6 +22,8 @@ namespace NoiseTestApp
             Compile ();
         }
         private int xOffset, zOffset;
+        private Assembly assembly;
+        private Type program;
         private MethodInfo calc2dFunc;
         private MethodInfo calc3dFunc;
         private string code = @"
@@ -33,7 +35,7 @@ namespace NoiseTestApp
         public const int waterLevel = 20;
         public const int CHUNK_SIZE = 32;
         public const int CHUNK_HEIGHT = 128;
-        public const int FRACTAL_SIZE = CHUNK_SIZE * 20;
+        public const int FRACTAL_SIZE = CHUNK_SIZE;// * 20;
         public const int globalMapSize = 256*CHUNK_SIZE;
         public const int minNoiseHeight = 0;
         public const int maxNoiseHeight = 127;
@@ -136,6 +138,9 @@ namespace NoiseTestApp
             calc3dFunc = null;
             using (var csc = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v4.0" } }))
             {
+                program = null;
+                assembly = null;
+                
                 var parameters = new CompilerParameters(new[] { "mscorlib.dll", "System.Core.dll" }, "foo.exe", false);
                 parameters.ReferencedAssemblies.Add("NoiseLibrary.dll");
                 parameters.GenerateInMemory = true;
@@ -149,8 +154,8 @@ namespace NoiseTestApp
                     return false;
                 }
 
-                Assembly assembly = results.CompiledAssembly;
-                Type program = assembly.GetType("NoiseTestApp.Program");
+                assembly = results.CompiledAssembly;
+                program = assembly.GetType("NoiseTestApp.Program");
                 calc2dFunc = program.GetMethod("Calc2d");
                 calc3dFunc = program.GetMethod("Calc3d");
                 return true;
@@ -211,7 +216,7 @@ namespace NoiseTestApp
 
         private void nButton_Click(object sender, EventArgs e)
         {
-            zOffset += 10;
+            zOffset -= 10;
             Draw();
         }
 
@@ -223,7 +228,7 @@ namespace NoiseTestApp
 
         private void sButton_Click(object sender, EventArgs e)
         {
-            zOffset -= 10;
+            zOffset += 10;
             Draw();
         }
 
